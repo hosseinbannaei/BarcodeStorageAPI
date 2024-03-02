@@ -30,6 +30,18 @@ app.get("/api/data", async (req, res) => {
   }
 });
 
+// Endpoint to clear the text file
+app.delete('/api/data', async (req, res) => {
+    try {
+        // Clear the content of the text file 'data.txt'
+        await fs.writeFile('./data/data.txt', '');
+        res.json({ message: 'Data file cleared successfully' });
+    } catch (error) {
+        console.error('Error clearing data file:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
